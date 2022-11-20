@@ -24,3 +24,4 @@ Route::post('/employees', [EmployeeController::class, 'store'])->name('employee.
 Route::get('/employee/{id}', [EmployeeController::class, 'show'])->name('employee.single');
 Route::put('/employee/{id}', [EmployeeController::class, 'update'])->name('employee.updateEmp');
 Route::delete('/employee/{id}', [EmployeeController::class, 'destroy'])->name('employee.destroy');
+Route::get('/employee/company-data', [EmployeeController::class, 'employCompanyData'])->name('employee.company.data');

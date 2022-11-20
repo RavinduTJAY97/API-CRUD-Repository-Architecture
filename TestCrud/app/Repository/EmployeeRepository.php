@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Employee;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeRepository implements IEmployeeRepository
 {
@@ -60,5 +61,14 @@ class EmployeeRepository implements IEmployeeRepository
             throw new \Exception("Invalid id entered");
         }
         return $employee->delete();
+    }
+
+    public function getEmployeeCompanyData(): object
+    {
+        $employees = DB::table('employees')
+            ->leftJoin('companies','employees.company_code','=','companies.company_code')
+            ->select('*')
+            ->get();
+        return $employees;
     }
 }

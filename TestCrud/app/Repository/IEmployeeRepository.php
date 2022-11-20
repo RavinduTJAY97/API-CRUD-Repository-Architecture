@@ -13,9 +13,14 @@ interface IEmployeeRepository
 
     //get single employee
     public function singleEmployee(int $id):object;
+
     //update employee
     public function updateEmployee(int $id,array $data):object;
+
     //delete employee
     public function removeEmployee(int $id):bool;
+
+    //get employee details with company data
+    public function getEmployeeCompanyData():object;
 
 }

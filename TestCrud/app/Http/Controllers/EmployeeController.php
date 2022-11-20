@@ -113,16 +113,16 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id): JsonResponse
     {
-//        $validator = Validator::make($request->all(), [
-//            'employee_name' => 'max:255',
-//            'employee_code' => 'unique:employees|max:255',
-//            'employee_department' => 'max:255',
-//            'company_code' => 'max:255',
-//        ]);
+        $validator = Validator::make($request->all(), [
+            'employee_name' => 'max:255',
+            'employee_code' => 'unique:employees|max:255',
+            'employee_department' => 'max:255',
+            'company_code' => 'max:255',
+        ]);
 
-//        if ($validator->fails()) {
-//            return response()->json($validator->errors());
-//        }
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
         try {
             $data = $request->all();
             $data = $this->employee->updateEmployee($id, $data);
@@ -145,6 +145,22 @@ class EmployeeController extends Controller
         try {
             $data = $this->employee->removeEmployee($id);
             $response = ["status" => 200, "message" => "Employee Deleted"];
+            return response()->json($response);
+        } catch (\Exception $ex) {
+            return response()->json($ex);
+        }
+    }
+
+    /**
+     * Return employee details with company data.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function employCompanyData():JsonResponse
+    {
+        try {
+            $data = $this->employee->getEmployeeCompanyData();
+            $response = ["status" => 200, "message" => "Employee Company Data","data"=>$data];
             return response()->json($response);
         } catch (\Exception $ex) {
             return response()->json($ex);
